@@ -52,4 +52,20 @@ public class Avatar {
         position.y -= direction.y;
     }
 
+    public Vector getPosition(){
+        return position;
+    }
+
+    public Vector getDirection(){
+        return direction;
+    }
+
+    public void setPosition(Vector v){
+        position = v;
+    }
+
+    public void setDirection(Vector v){
+        direction = v;
+    }
+
 }
