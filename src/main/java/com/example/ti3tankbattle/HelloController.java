@@ -1,7 +1,7 @@
 package com.example.ti3tankbattle;
 
 import com.example.ti3tankbattle.model.Avatar;
-import com.example.ti3tankbattle.model.Vector;
+import com.example.ti3tankbattle.model.Bullet;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -28,7 +29,13 @@ public class HelloController implements Initializable {
 
     private Avatar player2;
 
-    private Avatar bot;
+    private ArrayList<Avatar> enemies;
+
+    private ArrayList<Bullet> player1Bullets;
+
+    private ArrayList<Bullet> player2Bullets;
+
+    private ArrayList<Bullet> botBullets;
 
     //Estados de teclas
     //Jugador 1
@@ -52,9 +59,15 @@ public class HelloController implements Initializable {
         canvas.setOnKeyReleased(this::onKeyReleased);
         canvas.setOnMouseClicked(this::onMouseClicked);
 
+        enemies = new ArrayList<>();
+        enemies.add(new Avatar(canvas, HelloApplication.class.getResource("JugadorBOT.png").getPath(), 449, 70));
+
+        player1Bullets = new ArrayList<>();
+        player2Bullets = new ArrayList<>();
+        botBullets = new ArrayList<>();
+
         player1 = new Avatar(canvas, HelloApplication.class.getResource("Jugador1.png").getPath(), 33, 194);
         player2 = new Avatar(canvas, HelloApplication.class.getResource("Jugador2.png").getPath(), 538, 192);
-        bot = new Avatar(canvas, HelloApplication.class.getResource("JugadorBOT.png").getPath(), 450, 71);
 
         draw();
         drawBot();
@@ -108,6 +121,9 @@ public class HelloController implements Initializable {
         if (keyEvent.getCode() == KeyCode.D) {
             dPressed = true;
         }
+        if (keyEvent.getCode() == KeyCode.SPACE){
+            player1Bullets.add(new Bullet(canvas, (int)player1.getPosition().x, (int)player1.getPosition().y, HelloApplication.class.getResource("bullet.png").getPath()));
+        }
 
         //Player 2
         if (keyEvent.getCode() == KeyCode.UP) {
@@ -122,6 +138,9 @@ public class HelloController implements Initializable {
         if (keyEvent.getCode() == KeyCode.RIGHT) {
             rightPressed = true;
         }
+        if (keyEvent.getCode() == KeyCode.K){
+            player2Bullets.add(new Bullet(canvas, (int)player2.getPosition().x, (int)player2.getPosition().y, HelloApplication.class.getResource("bullet.png").getPath()));
+        }
     }
 
     public void draw() {
@@ -133,6 +152,23 @@ public class HelloController implements Initializable {
                             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                             player1.draw();
                             player2.draw();
+                            for (int i = 0; i < enemies.size(); i++) {
+                                enemies.get(i).draw();
+                            }
+
+                            for (int i = 0; i < player1Bullets.size(); i++) {
+                                player1Bullets.get(i).draw();
+                                if (player1Bullets.get(i).x > canvas.getWidth()+20 || player1Bullets.get(i).y > canvas.getHeight()+20 || player1Bullets.get(i).x < -20 || player1Bullets.get(i).y < -20){
+                                    player1Bullets.remove(i);
+                                }
+                            }
+
+                            for (int i = 0; i < player2Bullets.size(); i++) {
+                                player2Bullets.get(i).draw();
+                                if (player2Bullets.get(i).x > canvas.getWidth()+20 || player2Bullets.get(i).y > canvas.getHeight()+20 || player2Bullets.get(i).x < -20 || player2Bullets.get(i).y < -20){
+                                    player2Bullets.remove(i);
+                                }
+                            }
 
                             //Player 1 movement
                             if (wPressed) {
@@ -173,94 +209,40 @@ public class HelloController implements Initializable {
         ).start();
     }
 
-    /*
     public void drawBot(){
-        bot.changeAngle(45);
-        new Thread(
-                () -> {
-                    while (bot.getPosition().x == 450.0 && bot.getPosition().y != 297.2741699796952) {
-                        Platform.runLater(() -> {
-                            bot.draw();
-                            bot.moveForward();
-                            System.out.println(bot.getPosition().x);
-                            System.out.println(bot.getPosition().y);
-                            if (bot.getPosition().y == 297.2741699796952){
-                                bot.changeAngle(90);
-                            }
-                        });
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    while (bot.getPosition().x != 174.22835533724646 && bot.getPosition().y == 297.2741699796952) {
-                        Platform.runLater(() -> {
-                            bot.draw();
-                            bot.moveForward();
-                            if (bot.getPosition().x == 174.22835533724646){
-                                bot.changeAngle(90);
-                            }
-                        });
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    while (bot.getPosition().x == 174.22835533724646 && bot.getPosition().y != 71.0) {
-                        Platform.runLater(() -> {
-                            bot.draw();
-                            bot.moveForward();
-                            if (bot.getPosition().y == 71.0){
-                                bot.changeAngle(90);
-                            }
-                        });
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    while (bot.getPosition().x != 450.0 && bot.getPosition().y == 71.0) {
-                        Platform.runLater(() -> {
-                            bot.draw();
-                            bot.moveForward();
-                            System.out.println(bot.getPosition().x);
-                            if (bot.getPosition().x == 450.0){
-                                bot.changeAngle(90);
-                            }
-                        });
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-        ).start();
-    }
-     */
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).changeAngle(45);
+        }
 
-    public void drawBot(){
-        bot.changeAngle(45);
         final boolean[] flag = {true};
         new Thread(
                 () -> {
                     while (isRunning) {
                         Platform.runLater(() -> {
-                            bot.draw();
-                            bot.moveForward();
+                            for (int i = 0; i < enemies.size(); i++) {
+                                Avatar bot = enemies.get(i);
 
-                            if (bot.getPosition().y == 297.2741699796952){
-                                bot.changeAngle(90);
-                            }else if (bot.getPosition().x == 174.22835533724646){
-                                bot.changeAngle(90);
-                            }else if (bot.getPosition().y == 71.0){
-                                bot.changeAngle(90);
-                            }else if (bot.getPosition().x == 450.0){
-                                bot.changeAngle(90);
+                                bot.moveForward();
+
+                                if (bot.getPosition().y >= 297){
+                                    bot.getPosition().y = 296;
+                                    bot.changeAngle(90);
+                                }
+                                if (bot.getPosition().x <= 174){
+                                    bot.getPosition().x = 175;
+                                    bot.changeAngle(90);
+                                }
+                                if (bot.getPosition().y <= 71){
+                                    bot.getPosition().y = 72;
+                                    bot.changeAngle(90);
+                                }
+                                if (bot.getPosition().x >= 450){
+                                    bot.getPosition().x = 449;
+                                    bot.changeAngle(90);
+                                }
+
                             }
+
                         });
                         try {
                             Thread.sleep(50);
