@@ -18,7 +18,7 @@ public class Avatar {
         String uri = "file:" + imagePath;
         tankStyle = new Image(uri);
         position = new Vector(posX, posY);
-        direction = new Vector(5,5);
+        direction = new Vector(3,3);
     }
 
     public void draw(){

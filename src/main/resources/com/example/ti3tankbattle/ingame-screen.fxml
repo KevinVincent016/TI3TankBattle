@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ti3tankbattle.controller.InGameController">
+   <children>
+      <Canvas fx:id="canvas" height="312.0" layoutY="88.0" width="600.0" />
+      <Label fx:id="P1name" layoutX="54.0" layoutY="14.0" text="Player 1" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="P2name" layoutX="273.0" layoutY="14.0" text="Player 2" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="494.0" layoutY="14.0" text="BOT" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <HBox fx:id="p1Lifes" layoutX="35.0" layoutY="47.0" prefHeight="15.0" prefWidth="56.0">
+         <children>
+            <ImageView fx:id="p1Life1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Life2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Life3" fitHeight="17.0" fitWidth="19.0" layoutX="29.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Life4" fitHeight="17.0" fitWidth="19.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Life5" fitHeight="17.0" fitWidth="19.0" layoutX="67.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="p2Lifes" layoutX="253.0" layoutY="47.0" prefHeight="16.0" prefWidth="57.0">
+         <children>
+            <ImageView fx:id="p2Life1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Life2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Life3" fitHeight="17.0" fitWidth="19.0" layoutX="29.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Life4" fitHeight="17.0" fitWidth="19.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Life5" fitHeight="17.0" fitWidth="19.0" layoutX="67.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="botLifes" layoutX="462.0" layoutY="47.0" prefHeight="16.0" prefWidth="57.0">
+         <children>
+            <ImageView fx:id="botLife1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="botLife2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="botLife3" fitHeight="17.0" fitWidth="19.0" layoutX="29.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="botLife4" fitHeight="17.0" fitWidth="19.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="botLife5" fitHeight="17.0" fitWidth="19.0" layoutX="67.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@helmet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="p1Bullets" layoutX="54.0" layoutY="70.0" prefHeight="16.0" prefWidth="57.0">
+         <children>
+            <ImageView fx:id="p1Bullet1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Bullet2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Bullet3" fitHeight="17.0" fitWidth="19.0" layoutX="19.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Bullet4" fitHeight="17.0" fitWidth="19.0" layoutX="28.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Bullet5" fitHeight="17.0" fitWidth="19.0" layoutX="37.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1Bullet6" fitHeight="17.0" fitWidth="19.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="p2Bullets" layoutX="272.0" layoutY="70.0" prefHeight="16.0" prefWidth="57.0">
+         <children>
+            <ImageView fx:id="p2Bullet1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Bullet2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Bullet3" fitHeight="17.0" fitWidth="19.0" layoutX="19.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Bullet4" fitHeight="17.0" fitWidth="19.0" layoutX="28.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Bullet5" fitHeight="17.0" fitWidth="19.0" layoutX="37.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p2Bullet6" fitHeight="17.0" fitWidth="19.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox fx:id="p3Bullets" layoutX="481.0" layoutY="70.0" prefHeight="16.0" prefWidth="57.0">
+         <children>
+            <ImageView fx:id="p3Bullet1" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p3Bullet2" fitHeight="17.0" fitWidth="19.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p3Bullet3" fitHeight="17.0" fitWidth="19.0" layoutX="19.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p3Bullet4" fitHeight="17.0" fitWidth="19.0" layoutX="28.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p3Bullet5" fitHeight="17.0" fitWidth="19.0" layoutX="37.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p3Bullet6" fitHeight="17.0" fitWidth="19.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@bullet.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

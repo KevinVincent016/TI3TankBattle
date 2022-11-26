@@ -11,21 +11,23 @@ public class Bullet {
     private GraphicsContext gc;
 
     private Image bulletStyle;
-    public int x,y;
+    public Vector pos;
 
-    public Bullet(Canvas canvas, int x, int y, String imagePath){
+    public Vector direction;
+
+    public Bullet(Canvas canvas, Vector pos, Vector direction, String imagePath){
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
-        this.x = x;
-        this.y = y;
+        this.pos = pos;
+        this.direction = direction;
         String uri = "file:" + imagePath;
         bulletStyle = new Image(uri);
     }
 
     public void draw(){
         gc.setFill(Color.YELLOW);
-        gc.drawImage(bulletStyle,x-5,y-5,10,10);
-        x+=10;
+        gc.drawImage(bulletStyle,pos.x-5,pos.y-5,10,10);
+        pos.x+= direction.x;
+        pos.y+= direction.y;
     }
-
 }
