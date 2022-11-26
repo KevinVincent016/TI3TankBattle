@@ -6,6 +6,7 @@ public class PlayerData {
 
     private String player1Name;
     private String player2Name;
+    private String winnerName;
 
     private PlayerData(){
     }
@@ -31,6 +32,14 @@ public class PlayerData {
 
     public void setPlayer2Name(String name){
         player2Name = name;
+    }
+
+    public String getWinner(){
+        return winnerName;
+    }
+
+    public void setWinner(String name){
+        winnerName = name;
     }
 
 }

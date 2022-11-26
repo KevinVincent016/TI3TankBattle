@@ -29,5 +29,7 @@ public class Bullet {
         gc.drawImage(bulletStyle,pos.x-5,pos.y-5,10,10);
         pos.x+= direction.x;
         pos.y+= direction.y;
+        double xpos = pos.x;
+        double ypos = pos.y;
     }
 }

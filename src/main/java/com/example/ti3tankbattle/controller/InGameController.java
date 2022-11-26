@@ -230,7 +230,7 @@ public class InGameController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.SPACE){
             if (checkAmmo(p1Bullets)){
-                player1Bullets.add(new Bullet(canvas, new Vector ((int)player1.getPosition().x,(int)player1.getPosition().y), new Vector(2*player1.getPosition().x, 2*player1.getPosition().y), MainApplication.class.getResource("bullet.png").getPath()));
+                player1Bullets.add(new Bullet(canvas, new Vector ((int)player1.getPosition().x,(int)player1.getPosition().y), new Vector(2*player1.getDirection().x, 2*player1.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
                 shoot(p1Bullets);
             }
         }
@@ -253,7 +253,7 @@ public class InGameController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.K){
             if (checkAmmo(p2Bullets)){
-                player2Bullets.add(new Bullet(canvas, new Vector ((int)player2.getPosition().x,(int)player2.getPosition().y), new Vector(2*player2.getPosition().x, 2*player2.getPosition().y), MainApplication.class.getResource("bullet.png").getPath()));
+                player2Bullets.add(new Bullet(canvas, new Vector ((int)player2.getPosition().x,(int)player2.getPosition().y), new Vector(2*player2.getDirection().x, 2*player2.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
                 shoot(p2Bullets);
             }
         }
@@ -341,6 +341,7 @@ public class InGameController implements Initializable {
                     while (isRunning) {
                         Platform.runLater(() -> {
                             for (int i = 0; i < enemies.size(); i++) {
+
                                 Avatar bot = enemies.get(i);
 
                                 bot.moveForward();
@@ -381,7 +382,7 @@ public class InGameController implements Initializable {
                     while (isRunning) {
                         Platform.runLater(() -> {
 
-                            if (!checkAmmo(p1Bullets)){
+                            if (checkLife(botLifes)){
                                 try {
                                     isRunning = false;
                                     MainApplication.showWindow("final-screen.fxml");
@@ -450,25 +451,42 @@ public class InGameController implements Initializable {
 
                 if (distance < 25){
                     player1Bullets.remove(j);
-                    enemies.remove(i);
+                    for(Node node : botLifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (life.isVisible()){
+                            life.setVisible(false);
+                            break;
+                        }
+                    }
+
+                    int count = 0;
+                    for(Node node : botLifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (!life.isVisible()){
+                            count ++;
+                        }
+                    }
+                    if (count == 5){
+                        enemies.remove(i);
+                    }
                     return;
                 }
             }
         }
     }
 
-    public boolean checkLife(HBox player){
+    public boolean checkLife(HBox player) {
         int count = 0;
-        for (Node node : player.getChildren()){
+        for (Node node : player.getChildren()) {
             ImageView life = (ImageView) node;
-            if (!life.isVisible()){
-                count ++;
+            if (!life.isVisible()) {
+                count++;
             }
         }
-        if (count == 5){
-            return false;
-        }else{
-            return true;
+        if (count == 5) {
+            return false;   //no HP
+        } else {
+            return true;    //Still have HP
         }
     }
 
