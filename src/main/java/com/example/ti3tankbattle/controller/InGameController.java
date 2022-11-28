@@ -472,6 +472,104 @@ public class InGameController implements Initializable {
                     return;
                 }
             }
+            for (int j = 0; j < player2Bullets.size(); j++) {
+                Bullet b = player2Bullets.get(j);
+                Avatar e = enemies.get(i);
+
+                double c1 = b.pos.x - e.getPosition().x;
+                double c2 = b.pos.y - e.getPosition().y;
+                double distance = Math.sqrt(Math.pow(c1,2) + Math.pow(c2,2));
+
+                if (distance < 25){
+                    player2Bullets.remove(j);
+                    for(Node node : botLifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (life.isVisible()){
+                            life.setVisible(false);
+                            break;
+                        }
+                    }
+
+                    int count = 0;
+                    for(Node node : botLifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (!life.isVisible()){
+                            count ++;
+                        }
+                    }
+                    if (count == 5){
+                        enemies.remove(i);
+                    }
+                    return;
+                }
+            }
+            for (int j = 0; j < player1Bullets.size(); j++) {
+                Bullet b = player1Bullets.get(j);
+                Avatar e = player2;
+
+                double c1 = b.pos.x - e.getPosition().x;
+                double c2 = b.pos.y - e.getPosition().y;
+                double distance = Math.sqrt(Math.pow(c1,2) + Math.pow(c2,2));
+
+                if (distance < 25){
+                    player1Bullets.remove(j);
+                    for(Node node : p1Lifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (life.isVisible()){
+                            life.setVisible(false);
+                            break;
+                        }
+                    }
+
+                    int count = 0;
+                    for(Node node : p1Lifes.getChildren()){
+                        ImageView life = (ImageView) node;
+                        if (!life.isVisible()){
+                            count ++;
+                        }
+                    }
+                    if (count == 5){
+                        //player2.;
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    public void detectColition(ArrayList<Bullet> shooter, ArrayList<Avatar> objetive) {
+        for (int i = 0; i < objetive.size(); i++) {
+            for (int j = 0; j < shooter.size(); j++) {
+                Bullet b = shooter.get(j);
+                Avatar e = objetive.get(i);
+
+                double c1 = b.pos.x - e.getPosition().x;
+                double c2 = b.pos.y - e.getPosition().y;
+                double distance = Math.sqrt(Math.pow(c1, 2) + Math.pow(c2, 2));
+
+                if (distance < 25) {
+                    shooter.remove(j);
+                    for (Node node : botLifes.getChildren()) {
+                        ImageView life = (ImageView) node;
+                        if (life.isVisible()) {
+                            life.setVisible(false);
+                            break;
+                        }
+                    }
+
+                    int count = 0;
+                    for (Node node : botLifes.getChildren()) {
+                        ImageView life = (ImageView) node;
+                        if (!life.isVisible()) {
+                            count++;
+                        }
+                    }
+                    if (count == 5) {
+                        enemies.remove(i);
+                    }
+                    return;
+                }
+            }
         }
     }
 
