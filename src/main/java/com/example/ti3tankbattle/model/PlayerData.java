@@ -1,14 +1,20 @@
 package com.example.ti3tankbattle.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class PlayerData {
 
     private static PlayerData instance;
 
-    private String player1Name;
-    private String player2Name;
+    private User currentPlayer1;
+    private User currentPlayer2;
     private String winnerName;
 
+    private ObservableList<User> users;
+
     private PlayerData(){
+        users = FXCollections.observableArrayList();
     }
 
     public static PlayerData getInstance(){
@@ -18,20 +24,20 @@ public class PlayerData {
         return instance;
     }
 
-    public String getPlayer1Name() {
-        return player1Name;
+    public User getCurrentPlayer1() {
+        return currentPlayer1;
     }
 
-    public void setPlayer1Name(String name) {
-        player1Name = name;
+    public void setCurrentPlayer1(User player) {
+        currentPlayer1 = player;
     }
 
-    public String getPlayer2Name(){
-        return player2Name;
+    public User getCurrentPlayer2(){
+        return currentPlayer2;
     }
 
-    public void setPlayer2Name(String name){
-        player2Name = name;
+    public void setCurrentPlayer2(User player){
+        currentPlayer2 = player;
     }
 
     public String getWinner(){
@@ -40,6 +46,14 @@ public class PlayerData {
 
     public void setWinner(String name){
         winnerName = name;
+    }
+
+    public ObservableList<User> getUsers(){
+        return users;
+    }
+
+    public void addPlayer(User player){
+        users.add(player);
     }
 
 }

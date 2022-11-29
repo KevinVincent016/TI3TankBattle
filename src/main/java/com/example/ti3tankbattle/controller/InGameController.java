@@ -152,8 +152,8 @@ public class InGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        P1name.setText(PlayerData.getInstance().getPlayer1Name());
-        P2name.setText(PlayerData.getInstance().getPlayer2Name());
+        P1name.setText(PlayerData.getInstance().getCurrentPlayer1().getUserName());
+        P2name.setText(PlayerData.getInstance().getCurrentPlayer2().getUserName());
 
         gc = canvas.getGraphicsContext2D();
         canvas.setFocusTraversable(true);
@@ -182,6 +182,7 @@ public class InGameController implements Initializable {
 
         draw();
         drawBot();
+        checkMatch();
     }
 
     private void onMouseClicked(MouseEvent mouseEvent) {
@@ -233,7 +234,7 @@ public class InGameController implements Initializable {
             dPressed = true;
         }
         if (keyEvent.getCode() == KeyCode.SPACE) {
-            if (checkAmmo(p1Bullets)) {
+            if (checkAmmo(p1Bullets) && checkLife(p1Lifes)) {
                 player1Bullets.add(new Bullet(canvas, new Vector((int) player1.getPosition().x, (int) player1.getPosition().y), new Vector(2 * player1.getDirection().x, 2 * player1.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
                 shoot(p1Bullets);
             }
@@ -256,7 +257,7 @@ public class InGameController implements Initializable {
             rightPressed = true;
         }
         if (keyEvent.getCode() == KeyCode.K) {
-            if (checkAmmo(p2Bullets)) {
+            if (checkAmmo(p2Bullets) && checkLife(p2Lifes)) {
                 player2Bullets.add(new Bullet(canvas, new Vector((int) player2.getPosition().x, (int) player2.getPosition().y), new Vector(2 * player2.getDirection().x, 2 * player2.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
                 shoot(p2Bullets);
             }
@@ -468,20 +469,64 @@ public class InGameController implements Initializable {
                     while (isRunning) {
                         Platform.runLater(() -> {
 
-                            if ((checkLife(botLifes) && checkLife(p1Lifes)) ||
-                                    (checkLife(botLifes) && checkLife(p2Lifes)) ||
-                                    (checkLife(p1Lifes) && checkLife(p2Lifes))) {
+                            if (checkLife(p1Lifes) && !checkLife(p2Lifes) && !checkLife(botLifes)){
                                 try {
                                     isRunning = false;
+                                    PlayerData.getInstance().setWinner(PlayerData.getInstance().getCurrentPlayer1().getUserName());
+                                    for (int i = 0; i < PlayerData.getInstance().getUsers().size(); i++) {
+                                        String currentWinner = PlayerData.getInstance().getWinner();
+                                        if (PlayerData.getInstance().getUsers().get(i).getUserName().equals(currentWinner)){
+                                            int wins = PlayerData.getInstance().getUsers().get(i).getWins() + 1;
+                                            PlayerData.getInstance().getUsers().get(i).setWins(wins);
+                                        }
+                                    }
                                     MainApplication.showWindow("final-screen.fxml");
                                     Stage currentStage = (Stage) P1name.getScene().getWindow();
                                     currentStage.hide();
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
-
                             }
-
+                            if (!checkLife(p1Lifes) && checkLife(p2Lifes) && !checkLife(botLifes)){
+                                try {
+                                    isRunning = false;
+                                    PlayerData.getInstance().setWinner(PlayerData.getInstance().getCurrentPlayer2().getUserName());
+                                    for (int i = 0; i < PlayerData.getInstance().getUsers().size(); i++) {
+                                        String currentWinner = PlayerData.getInstance().getWinner();
+                                        if (PlayerData.getInstance().getUsers().get(i).equals(currentWinner)){
+                                            int wins = PlayerData.getInstance().getUsers().get(i).getWins() + 1;
+                                            PlayerData.getInstance().getUsers().get(i).setWins(wins);
+                                        }
+                                    }
+                                    MainApplication.showWindow("final-screen.fxml");
+                                    Stage currentStage = (Stage) P1name.getScene().getWindow();
+                                    currentStage.hide();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            if (!checkLife(p1Lifes) && !checkLife(p2Lifes) && checkLife(botLifes)){
+                                try {
+                                    isRunning = false;
+                                    PlayerData.getInstance().setWinner("BOT won");
+                                    MainApplication.showWindow("final-screen.fxml");
+                                    Stage currentStage = (Stage) P1name.getScene().getWindow();
+                                    currentStage.hide();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            if(!checkLife(p1Lifes) && !checkLife(p2Lifes) && !checkLife(botLifes)){
+                                try {
+                                    isRunning = false;
+                                    PlayerData.getInstance().setWinner("Draw");
+                                    MainApplication.showWindow("final-screen.fxml");
+                                    Stage currentStage = (Stage) P1name.getScene().getWindow();
+                                    currentStage.hide();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
                         });
                         try {
                             Thread.sleep(50);
@@ -685,7 +730,6 @@ public class InGameController implements Initializable {
             }
         }
     }
-
 
     public boolean checkLife(HBox player) {
         int count = 0;
