@@ -39,6 +39,7 @@ public class FinalScreenController implements Initializable {
 
     @FXML
     void newMatch(ActionEvent event) throws IOException {
+        reproduceSound("src/main/resources/com/example/ti3tankbattle/select.wav");
         MainApplication.showWindow("start-screen.fxml");
         Stage currentStage = (Stage)newMatch.getScene().getWindow();
         currentStage.hide();
