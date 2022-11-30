@@ -473,11 +473,12 @@ public class InGameController implements Initializable {
                                 try {
                                     isRunning = false;
                                     PlayerData.getInstance().setWinner(PlayerData.getInstance().getCurrentPlayer1().getUserName());
+                                    String currentWinner = PlayerData.getInstance().getWinner();
                                     for (int i = 0; i < PlayerData.getInstance().getUsers().size(); i++) {
-                                        String currentWinner = PlayerData.getInstance().getWinner();
                                         if (PlayerData.getInstance().getUsers().get(i).getUserName().equals(currentWinner)){
                                             int wins = PlayerData.getInstance().getUsers().get(i).getWins() + 1;
                                             PlayerData.getInstance().getUsers().get(i).setWins(wins);
+                                            break;
                                         }
                                     }
                                     MainApplication.showWindow("final-screen.fxml");
@@ -496,6 +497,7 @@ public class InGameController implements Initializable {
                                         if (PlayerData.getInstance().getUsers().get(i).equals(currentWinner)){
                                             int wins = PlayerData.getInstance().getUsers().get(i).getWins() + 1;
                                             PlayerData.getInstance().getUsers().get(i).setWins(wins);
+                                            break;
                                         }
                                     }
                                     MainApplication.showWindow("final-screen.fxml");

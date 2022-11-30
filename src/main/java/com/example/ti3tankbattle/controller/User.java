@@ -1,4 +1,4 @@
-package com.example.ti3tankbattle.model;
+package com.example.ti3tankbattle.controller;
 
 public class User {
     private String userName;
