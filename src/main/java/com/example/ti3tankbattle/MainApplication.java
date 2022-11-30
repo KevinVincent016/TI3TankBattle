@@ -4,12 +4,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 
 public class MainApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         showWindow("start-screen.fxml");
+        reproduceSound("src/main/resources/com/example/ti3tankbattle/backgroundsound.wav");
     }
 
     public static void showWindow(String fxml) throws IOException {
@@ -22,6 +25,27 @@ public class MainApplication extends javafx.application.Application {
             window.show();
         }catch (IOException ex){
             ex.printStackTrace();
+        }
+    }
+
+    public void reproduceSound(String path){
+        File musicPath = new File(path);
+
+        if(musicPath.exists()){
+
+            try {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

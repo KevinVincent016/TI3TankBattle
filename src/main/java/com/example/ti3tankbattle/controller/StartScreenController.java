@@ -3,18 +3,16 @@ package com.example.ti3tankbattle.controller;
 import com.example.ti3tankbattle.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.*;
 import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
-public class StartScreenController implements Initializable {
+
+public class StartScreenController {
 
     @FXML
     private TextField player1Name;
@@ -62,22 +60,17 @@ public class StartScreenController implements Initializable {
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Warning");
-            alert.setContentText("Nombre muy extenso o Nombre repetido");
+            alert.setContentText("Nombre(s) no valido(s)");
             alert.show();
         }
     }
 
     public boolean validateName(TextField name){
-        if (name.getText().length() > 10){
+        if (name.getText().length() > 10 || name.getText().equals("")){
             return false;
         }else{
             return true;
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        reproduceSound("src/main/resources/com/example/ti3tankbattle/backgroundsound.wav");
     }
 
     public void reproduceSound(String path){

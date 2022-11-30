@@ -83,6 +83,7 @@ public class InGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         P1name.setText(PlayerData.getInstance().getCurrentPlayer1().getUserName());
         P2name.setText(PlayerData.getInstance().getCurrentPlayer2().getUserName());
 
