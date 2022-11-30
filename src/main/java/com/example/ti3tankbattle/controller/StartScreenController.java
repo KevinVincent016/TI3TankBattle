@@ -3,13 +3,18 @@ package com.example.ti3tankbattle.controller;
 import com.example.ti3tankbattle.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import javax.sound.sampled.*;
 import java.io.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class StartScreenController{
+public class StartScreenController implements Initializable {
 
     @FXML
     private TextField player1Name;
@@ -48,6 +53,9 @@ public class StartScreenController{
                     break;
                 }
             }
+
+            reproduceSound("src/main/resources/com/example/ti3tankbattle/select.wav");
+
             MainApplication.showWindow("ingame-screen.fxml");
             Stage currentStage = (Stage)player1Name.getScene().getWindow();
             currentStage.hide();
@@ -64,6 +72,32 @@ public class StartScreenController{
             return false;
         }else{
             return true;
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        reproduceSound("src/main/resources/com/example/ti3tankbattle/backgroundsound.wav");
+    }
+
+    public void reproduceSound(String path){
+        File musicPath = new File(path);
+
+        if(musicPath.exists()){
+
+            try {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

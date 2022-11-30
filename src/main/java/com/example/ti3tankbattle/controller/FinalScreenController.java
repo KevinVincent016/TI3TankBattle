@@ -10,6 +10,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +46,8 @@ public class FinalScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        reproduceSound("src/main/resources/com/example/ti3tankbattle/endmatch.wav");
+
         winnerName.setText(PlayerData.getInstance().getWinner());
         winnerMessage.setText("Felicidades " + PlayerData.getInstance().getWinner() + "," + " demostraste ser un buen tanquista");
 
@@ -50,5 +55,26 @@ public class FinalScreenController implements Initializable {
         victoriesColum.setCellValueFactory(new PropertyValueFactory<>("wins"));
 
         scoreView.setItems(PlayerData.getInstance().getUsers());
+    }
+
+    public void reproduceSound(String path){
+        File musicPath = new File(path);
+
+        if(musicPath.exists()){
+
+            try {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

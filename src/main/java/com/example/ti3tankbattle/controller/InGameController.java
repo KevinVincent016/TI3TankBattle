@@ -12,11 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -161,10 +162,12 @@ public class InGameController implements Initializable {
         if (keyEvent.getCode() == KeyCode.SPACE) {
             if (checkAmmo(p1Bullets) && checkLife(p1Lifes)) {
                 player1Bullets.add(new Bullet(canvas, new Vector((int) player1.getPosition().x, (int) player1.getPosition().y), new Vector(2 * player1.getDirection().x, 2 * player1.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
+                reproduceSound("src/main/resources/com/example/ti3tankbattle/shot.wav");
                 shoot(p1Bullets);
             }
         }
         if (keyEvent.getCode() == KeyCode.R) {
+            reproduceSound("src/main/resources/com/example/ti3tankbattle/reload.wav");
             reload(p1Bullets);
         }
 
@@ -184,10 +187,12 @@ public class InGameController implements Initializable {
         if (keyEvent.getCode() == KeyCode.K) {
             if (checkAmmo(p2Bullets) && checkLife(p2Lifes)) {
                 player2Bullets.add(new Bullet(canvas, new Vector((int) player2.getPosition().x, (int) player2.getPosition().y), new Vector(2 * player2.getDirection().x, 2 * player2.getDirection().y), MainApplication.class.getResource("bullet.png").getPath()));
+                reproduceSound("src/main/resources/com/example/ti3tankbattle/shot.wav");
                 shoot(p2Bullets);
             }
         }
         if (keyEvent.getCode() == KeyCode.J) {
+            reproduceSound("src/main/resources/com/example/ti3tankbattle/reload.wav");
             reload(p2Bullets);
         }
     }
@@ -389,10 +394,27 @@ public class InGameController implements Initializable {
     }
 
     public void checkMatch() {
+        final boolean[] flag1 = {true};
+        final boolean[] flag2 = {true};
+        final boolean[] flag3 = {true};
+
         new Thread(
                 () -> {
                     while (isRunning) {
                         Platform.runLater(() -> {
+
+                            if (!checkLife(p1Lifes) && flag1[0]){
+                                reproduceSound("src/main/resources/com/example/ti3tankbattle/explosion.wav");
+                                flag1[0] = false;
+                            }
+                            if (!checkLife(p2Lifes) && flag2[0]){
+                                reproduceSound("src/main/resources/com/example/ti3tankbattle/explosion.wav");
+                                flag2[0] = false;
+                            }
+                            if (!checkLife(botLifes) && flag3[0]){
+                                reproduceSound("src/main/resources/com/example/ti3tankbattle/explosion.wav");
+                                flag3[0] = false;
+                            }
 
                             if (checkLife(p1Lifes) && !checkLife(p2Lifes) && !checkLife(botLifes)){
                                 try {
@@ -670,6 +692,27 @@ public class InGameController implements Initializable {
             return false;   //no HP
         } else {
             return true;    //Still have HP
+        }
+    }
+
+    public void reproduceSound(String path){
+        File musicPath = new File(path);
+
+        if(musicPath.exists()){
+
+            try {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
