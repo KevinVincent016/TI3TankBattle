@@ -3,29 +3,19 @@ package com.example.ti3tankbattle.controller;
 import com.example.ti3tankbattle.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.google.gson.Gson;
-
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class StartScreenController implements Initializable {
+
+public class StartScreenController{
 
     @FXML
     private TextField player1Name;
 
     @FXML
     private TextField player2Name;
-
-    @FXML
-    private Button start;
 
     @FXML
     void startGame(ActionEvent event) throws IOException {
@@ -74,42 +64,6 @@ public class StartScreenController implements Initializable {
             return false;
         }else{
             return true;
-        }
-    }
-
-    public void loadDataBaseFromJson(ArrayList<User> arr) {
-        try {
-            File file = new File("src/main/resources/com/example/ti3tankbattle/database.json");
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-
-            String json = "";
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                json += line;
-            }
-            Gson gson = new Gson();
-            User[] data = gson.fromJson(json, User[].class);
-            if (data != null) {
-                for (User b : data) {
-                    arr.add(b);
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<User> temp = new ArrayList<>();
-        loadDataBaseFromJson(temp);
-        if(!temp.isEmpty()){
-            for (int i = 0; i < temp.size(); i++) {
-                PlayerData.getInstance().getUsers().add(temp.get(i));
-            }
         }
     }
 }

@@ -1,7 +1,6 @@
 module com.example.ti3tankbattle {
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.google.gson;
 
 
     opens com.example.ti3tankbattle to javafx.fxml;

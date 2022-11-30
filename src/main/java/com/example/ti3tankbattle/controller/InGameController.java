@@ -35,93 +35,23 @@ public class InGameController implements Initializable {
 
     @FXML
     private HBox botLifes;
-    @FXML
-    private ImageView botLife1;
-    @FXML
-    private ImageView botLife2;
-    @FXML
-    private ImageView botLife3;
-    @FXML
-    private ImageView botLife4;
-    @FXML
-    private ImageView botLife5;
-
 
     @FXML
     private HBox p3Bullets;
-    @FXML
-    private ImageView p3Bullet1;
-    @FXML
-    private ImageView p3Bullet2;
-    @FXML
-    private ImageView p3Bullet3;
-    @FXML
-    private ImageView p3Bullet4;
-    @FXML
-    private ImageView p3Bullet5;
-    @FXML
-    private ImageView p3Bullet6;
 
 
     @FXML
     private HBox p1Lifes;
-    @FXML
-    private ImageView p1Life1;
-    @FXML
-    private ImageView p1Life2;
-    @FXML
-    private ImageView p1Life3;
-    @FXML
-    private ImageView p1Life4;
-    @FXML
-    private ImageView p1Life5;
-
 
     @FXML
     private HBox p1Bullets;
-    @FXML
-    private ImageView p1Bullet1;
-    @FXML
-    private ImageView p1Bullet2;
-    @FXML
-    private ImageView p1Bullet3;
-    @FXML
-    private ImageView p1Bullet4;
-    @FXML
-    private ImageView p1Bullet5;
-    @FXML
-    private ImageView p1Bullet6;
 
 
     @FXML
     private HBox p2Lifes;
-    @FXML
-    private ImageView p2Life1;
-    @FXML
-    private ImageView p2Life2;
-    @FXML
-    private ImageView p2Life3;
-    @FXML
-    private ImageView p2Life4;
-    @FXML
-    private ImageView p2Life5;
-
 
     @FXML
     private HBox p2Bullets;
-    @FXML
-    private ImageView p2Bullet1;
-    @FXML
-    private ImageView p2Bullet2;
-    @FXML
-    private ImageView p2Bullet3;
-    @FXML
-    private ImageView p2Bullet4;
-    @FXML
-    private ImageView p2Bullet5;
-    @FXML
-    private ImageView p2Bullet6;
-
 
     private GraphicsContext gc;
 
@@ -160,7 +90,6 @@ public class InGameController implements Initializable {
 
         canvas.setOnKeyPressed(this::onKeyPressed);
         canvas.setOnKeyReleased(this::onKeyReleased);
-        canvas.setOnMouseClicked(this::onMouseClicked);
 
         enemies = new ArrayList<>();
         enemies.add(new Avatar(canvas, MainApplication.class.getResource("JugadorBOT.png").getPath(), 449, 70));
@@ -183,10 +112,6 @@ public class InGameController implements Initializable {
         draw();
         drawBot();
         checkMatch();
-    }
-
-    private void onMouseClicked(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
     }
 
     public void onKeyReleased(KeyEvent keyEvent) {
